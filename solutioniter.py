@@ -1,4 +1,4 @@
-# Solution "Skipping Work (Iterative)""
+# Solution "Skipping Work (Iterative)"
 def solution(list1, list2):
     list1.sort()
     list2.sort()

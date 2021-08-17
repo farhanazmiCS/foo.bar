@@ -1,29 +1,28 @@
-# Solution "Skipping Work"
-def solution(list1, list2):
-    # Sorts the list
-    list1.sort()
-    list2.sort()
-
-    def checkextra(sorted1, sorted2):
-        # Base case 1: Checks if the first element on the list are the same
-        if sorted1[0] != sorted2[0]:
-            if len(sorted1) > len(sorted2):
-                return sorted1[0]
-            else:
-                return sorted2[0]
-        # Base case 2: 2nd list contains the extra element
-        elif len(sorted1) == 1 and len(sorted2) == 2:
-            if sorted1[0] == sorted2[0]:
-                return sorted1[0]
-            else:
-                return sorted2[1]
-        # Base case 3: 1st list contains the extra element
-        elif len(sorted1) == 2 and len(sorted1) == 1:
-            if sorted1[0] == sorted2[0]:
-                return sorted2[0]
-            else:
-                return sorted1[1]
-        # Recursive Case
+# Solution "Power Hungry"
+def solution(x):
+    x.sort()
+    def product(x):
+        if len(x) == 0:
+            return 1
+        elif len(x) == 1:
+            return x[0]
         else:
-            return checkextra(sorted1[1:len(sorted1)], sorted2[1:len(sorted2)])
-    return checkextra(list1, list2)
+            # Even Array
+            if len(x) % 2 == 0:
+                if x[0] * x[1] > 0:
+                    return x[0] * x[1] * product(x[2:len(x)])
+                else:
+                    if len(x) == 2:
+                        return x[1]
+                    return product(x[1:len(x)])
+            # Odd Array
+            else:
+                if x[0] * x[1] * x[2] > 0:
+                    return x[0] * x[1] * x[2] * product(x[3:len(x)])
+                elif x[0] * x[1] > 0:
+                    if len(x) == 3:
+                        return x[0] * x[1]
+                    return x[0] * x[1] * product(x[2:len(x)])
+                else:
+                    return product(x[1:len(x)])
+    return str(product(x))

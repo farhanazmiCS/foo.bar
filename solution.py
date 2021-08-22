@@ -1,28 +1,56 @@
-# Solution "Power Hungry"
-def solution(x):
-    x.sort()
-    def product(x):
-        if len(x) == 0:
-            return 1
-        elif len(x) == 1:
-            return x[0]
-        else:
-            # Even Array
-            if len(x) % 2 == 0:
-                if x[0] * x[1] > 0:
-                    return x[0] * x[1] * product(x[2:len(x)])
-                else:
-                    if len(x) == 2:
-                        return x[1]
-                    return product(x[1:len(x)])
-            # Odd Array
-            else:
-                if x[0] * x[1] * x[2] > 0:
-                    return x[0] * x[1] * x[2] * product(x[3:len(x)])
-                elif x[0] * x[1] > 0:
-                    if len(x) == 3:
-                        return x[0] * x[1]
-                    return x[0] * x[1] * product(x[2:len(x)])
-                else:
-                    return product(x[1:len(x)])
-    return str(product(x))
+# Solution "Elevator Maintenance"
+def solution(list):
+
+    # Key for sorting by MAJOR
+    def major(element):
+        return int(element.split('.')[0])
+
+    # Key for sorting by MINOR
+    def minor(element):
+        try:
+            return int(element.split('.')[1])
+        except IndexError:
+            return -1
+
+    # Key for sorting by REVISION
+    def revision(element):
+        try:
+            return int(element.split('.')[2])
+        except IndexError:
+            return -1
+
+    # Sorts the ENTIRE list by MAJOR
+    list = sorted(list, key=major)
+
+    # Sorts sublists by REVISION 
+    def sortRevision(list):
+        for i in range(1, len(list)):
+            # Try-Except is used as splitting an integer value (e.g 2) will lead to IndexError.
+            try:
+                if list[0].split('.')[1] != list[i].split('.')[1]:
+                    return sorted(list[:i], key=revision) + sortRevision(list[i:])
+                # Sorts the last MINOR sublist.
+                elif i == len(list) - 1:
+                    return sorted(list[:i+1], key=revision)
+            # If element in the list cannot be split, set it to '0' (e.g 2 is actually 2.0).
+            except IndexError:
+                if '0' != list[i].split('.')[1]:
+                    return sorted(list[:i], key=revision) + sortRevision(list[i:])
+                elif i == len(list) - 1:
+                    return sorted(list[:i+1], key=revision)
+        return list
+
+    # Sorts sublists by MINOR
+    def sortMinor(list):
+        # Loops through the ENTIRE list. If the MAJOR on the ith element does not match the major on index 0 (First), sort from the first element all the way to (i - 1), by MINOR.
+        for i in range(1, len(list)):
+            # Checks the MAJOR element. If list[0] == list[1], continue with iteration. Else, continue with iteration.
+            if list[0].split('.')[0] != list[i].split('.')[0]:
+                # Check takes the remaining unsorted list (by minor) as input
+                return sortRevision(sorted(list[:i], key=minor)) + sortMinor(list[i:])
+            # Sorts the last MAJOR sublist
+            elif i == len(list) - 1:
+                return sortRevision(sorted(list[:i+1], key=minor))
+        return list
+
+    return sortMinor(list)

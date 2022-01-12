@@ -11,12 +11,13 @@ In each test case, the lists x and y will always contain n non-unique integers w
 Your code should pass the following test cases.
 Note that it may also be run against hidden test cases not shown here.
 
-Input:
-Solution.solution([13, 5, 6, 2, 5], [5, 2, 5, 13])
-Output:
-6
+## Python Test Cases
+### Input
+solution.solution([13, 5, 6, 2, 5], [5, 2, 5, 13])
 
-Input:
-Solution.solution([14, 27, 1, 4, 2, 50, 3, 1], [2, 4, -4, 3, 1, 1, 14, 27, 50])
-Output:
--4
+Output: 6
+
+### Input
+solution.solution([14, 27, 1, 4, 2, 50, 3, 1], [2, 4, -4, 3, 1, 1, 14, 27, 50])
+
+Output: -4

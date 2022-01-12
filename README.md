@@ -12,12 +12,13 @@ Your code should pass the following test cases.
 Note that it may also be run against hidden test cases not shown here.
 
 ## Python Test Cases
-### Input
-solution.solution([13, 5, 6, 2, 5], [5, 2, 5, 13])
+
+### Test Case 1
+Input: solution.solution([13, 5, 6, 2, 5], [5, 2, 5, 13])
 
 Output: 6
 
-### Input
-solution.solution([14, 27, 1, 4, 2, 50, 3, 1], [2, 4, -4, 3, 1, 1, 14, 27, 50])
+### Test Case 2
+Input: solution.solution([14, 27, 1, 4, 2, 50, 3, 1], [2, 4, -4, 3, 1, 1, 14, 27, 50])
 
 Output: -4
